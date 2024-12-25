@@ -222,8 +222,6 @@
             const messageElement = document.getElementById('message');
 
             if (isValidEmail(email)) {
-                messageElement.textContent = 'Processing...';
-                messageElement.className = 'message info';
                     const formData = new FormData();
                     formData.append("email", email);
 
