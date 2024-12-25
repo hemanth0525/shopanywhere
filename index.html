@@ -233,18 +233,9 @@
                         method: 'POST',
                         body: formData,
                     });
-
-                    if (response.ok) {
-                        messageElement.textContent = 'Thank you! We\'ll notify you when we launch.';
-                        messageElement.className = 'message success';
-                        document.getElementById('email').value = '';
-                    } else {
-                        throw new Error('Failed to send message');
-                    }
-                } catch (error) {
-                    messageElement.textContent = 'An error occurred. Please try again later.';
-                    messageElement.className = 'message error';
-                }
+                    messageElement.textContent = 'Thank you! We\'ll notify you when we launch.';
+                    messageElement.className = 'message success';
+                    document.getElementById('email').value = '';
             } else {
                 messageElement.textContent = 'Please enter a valid email address.';
                 messageElement.className = 'message error';
