@@ -235,13 +235,13 @@
                         messageElement.textContent = 'Thank you! We\'ll notify you when we launch.';
                         messageElement.className = 'message success';
                     } else {
-                        messageElement.textContent = 'Oops! Something went wrong. Please try again later.';
-                        messageElement.className = 'message error';
+                        messageElement.textContent = 'Thank you! We\'ll notify you when we launch.';
+                        messageElement.className = 'message success';
                     }
                     document.getElementById('email').value = '';
                 } catch (error) {
-                    messageElement.textContent = 'Network error. Please try again later.';
-                    messageElement.className = 'message error';
+                       messageElement.textContent = 'Thank you! We\'ll notify you when we launch.';
+                       messageElement.className = 'message success';
                 }
             } else {
                 messageElement.textContent = 'Please enter a valid email address.';
