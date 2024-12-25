@@ -208,7 +208,6 @@
         </div>
         <form id="notifyForm" class="notify-form" action="https://formspree.io/f/xdkoednj" method="POST">
             <input type="email" name="email" id="email" placeholder="Enter your email" required aria-label="Email address">
-            <textarea name="message" id="messageField" placeholder="Enter your message" required aria-label="Message"></textarea>
             <button type="submit">Get Notified</button>
         </form>
         <div id="message" class="message" aria-live="polite"></div>
@@ -220,7 +219,6 @@
         document.getElementById('notifyForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const email = document.getElementById('email').value;
-            const message = document.getElementById('messageField').value;
             const messageElement = document.getElementById('message');
 
             if (isValidEmail(email)) {
@@ -230,7 +228,6 @@
                 try {
                     const formData = new FormData();
                     formData.append("email", email);
-                    formData.append("message", message);
 
                     const response = await fetch('https://formspree.io/f/xdkoednj', {
                         method: 'POST',
@@ -241,7 +238,6 @@
                         messageElement.textContent = 'Thank you! We\'ll notify you when we launch.';
                         messageElement.className = 'message success';
                         document.getElementById('email').value = '';
-                        document.getElementById('messageField').value = '';
                     } else {
                         throw new Error('Failed to send message');
                     }
