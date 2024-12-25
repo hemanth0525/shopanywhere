@@ -101,18 +101,53 @@
             color: var(--primary);
         }
 
-        .email {
-            color: var(--primary);
-            text-decoration: none;
-            border: 1px solid var(--primary);
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
+        .notify-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
         }
 
-        .email:hover {
-            background: var(--primary);
+        .notify-form input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--muted);
+            border-radius: 0.5rem;
+            background-color: var(--background);
+            color: var(--foreground);
+            font-size: 1rem;
+        }
+
+        .notify-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .notify-form button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary);
             color: var(--background);
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .notify-form button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .message {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .success {
+            color: var(--primary);
+        }
+
+        .error {
+            color: #ef4444;
         }
 
         @media (max-width: 640px) {
@@ -121,6 +156,13 @@
             }
             .description {
                 font-size: 1rem;
+            }
+            .notify-form {
+                flex-direction: column;
+            }
+            .notify-form input,
+            .notify-form button {
+                width: 100%;
             }
         }
     </style>
@@ -164,7 +206,78 @@
                 <span>Real-time Price Tracking</span>
             </div>
         </div>
-        <a href="mailto:contact@shopanywhere.xyz" class="email">Get Notified When We Launch</a>
+        <form id="notifyForm" class="notify-form">
+            <input type="email" id="email" placeholder="Enter your email" required aria-label="Email address">
+            <button type="submit">Get Notified</button>
+        </form>
+        <div id="message" class="message" aria-live="polite"></div>
     </div>
+    <script>
+        const GIST_ID = '7fcdf4f12e8232f459255f4d7bdedbd0';
+        const FILENAME = 'shopanywhere_emails.json';
+
+        async function updateGist(email) {
+            try {
+                const response = await fetch(`https://api.github.com/gists/${GIST_ID}`);
+                const gist = await response.json();
+                let emails = JSON.parse(gist.files[FILENAME].content || '[]');
+
+                if (!emails.includes(email)) {
+                    emails.push(email);
+
+                    const updateResponse = await fetch(`https://api.github.com/gists/${GIST_ID}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            files: {
+                                [FILENAME]: {
+                                    content: JSON.stringify(emails)
+                                }
+                            }
+                        })
+                    });
+
+                    if (!updateResponse.ok) {
+                        throw new Error('Failed to update Gist');
+                    }
+
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                throw error;
+            }
+        }
+
+        document.getElementById('notifyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var email = document.getElementById('email').value;
+            var messageElement = document.getElementById('message');
+            
+            if (email) {
+                try {
+                    const isNewEmail = await updateGist(email);
+                    if (isNewEmail) {
+                        messageElement.textContent = 'Thank you! We\'ll notify you when we launch.';
+                        messageElement.className = 'message success';
+                        document.getElementById('email').value = '';
+                    } else {
+                        messageElement.textContent = 'This email is already registered.';
+                        messageElement.className = 'message error';
+                    }
+                } catch (error) {
+                    messageElement.textContent = 'An error occurred. Please try again later.';
+                    messageElement.className = 'message error';
+                }
+            } else {
+                messageElement.textContent = 'Please enter a valid email address.';
+                messageElement.className = 'message error';
+            }
+        });
+    </script>
 </body>
 </html>
