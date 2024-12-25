@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopAnywhere.xyz - Coming Soon</title>
+    <style>
+        :root {
+            --primary: rgb(45, 212, 191);
+            --primary-dark: rgb(17, 94, 89);
+            --background: rgb(255, 255, 255);
+            --foreground: rgb(15, 23, 42);
+            --muted: rgb(100, 116, 139);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background: rgb(15, 23, 42);
+                --foreground: rgb(248, 250, 252);
+                --muted: rgb(148, 163, 184);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .dot-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-size: 20px 20px;
+            background-image: radial-gradient(circle, var(--muted) 1px, transparent 1px);
+            opacity: 0.1;
+        }
+
+        .container {
+            max-width: 600px;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .logo {
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .logo svg {
+            width: 80px;
+            height: 80px;
+        }
+
+        .brand {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .description {
+            color: var(--muted);
+            margin-bottom: 2rem;
+            font-size: 1.25rem;
+        }
+
+        .features {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .feature svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            color: var(--primary);
+        }
+
+        .email {
+            color: var(--primary);
+            text-decoration: none;
+            border: 1px solid var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .email:hover {
+            background: var(--primary);
+            color: var(--background);
+        }
+
+        @media (max-width: 640px) {
+            .brand {
+                font-size: 2rem;
+            }
+            .description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dot-grid"></div>
+    <div class="container">
+        <div class="logo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color: rgb(45, 212, 191)" />
+                        <stop offset="100%" style="stop-color: rgb(167, 243, 208)" />
+                    </linearGradient>
+                </defs>
+                <path d="M20 30L50 15L80 30L80 70L50 85L20 70L20 30Z" fill="url(#gradient)" stroke="rgb(17, 94, 89)" stroke-width="4" />
+                <path d="M35 25L50 17L65 25L65 40L50 48L35 40L35 25Z" fill="rgb(17, 94, 89)" opacity="0.2" />
+            </svg>
+        </div>
+        <h1 class="brand">ShopAnywhere.xyz</h1>
+        <p class="description">
+            We're building the future of online shopping. One search. Every store. Best deals.
+        </p>
+        <div class="features">
+            <div class="feature">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"></path>
+                </svg>
+                <span>AI-Powered Product Search</span>
+            </div>
+            <div class="feature">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"></path>
+                </svg>
+                <span>Cross-Platform Price Comparison</span>
+            </div>
+            <div class="feature">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"></path>
+                </svg>
+                <span>Real-time Price Tracking</span>
+            </div>
+        </div>
+        <a href="mailto:contact@shopanywhere.xyz" class="email">Get Notified When We Launch</a>
+    </div>
+</body>
+</html>
